@@ -1,0 +1,24 @@
+<div class="main">
+    <div class="analyzer">
+        <div id="back" *ngIf="info" [ngStyle]="{'background-image': 'url(' + info.thumbnail_url + ')'}"></div>
+        <div id="progress-circle">
+          <round-progress 
+            [current]="current" 
+            [max]="100"
+            [responsive]="true"
+            [background]="'#333'"
+            [stroke]="8"
+            [color]="'#00cec9'"
+          ></round-progress>
+          <span class="round-progress-info" *ngIf="working && !convert">Téléchargement en cours...<br/>{{ download }}Mo / {{ total }}Mo</span>
+          <span class="round-progress-info" *ngIf="working && convert">Conversion en cours...</span>
+        </div>
+    </div>
+    <h5 class="title" *ngIf="info">{{ info.title }}</h5>
+    <h5 class="title" *ngIf="!info">Prêt...</h5>
+</div>
+
+<div class="buttons-bottom-bar">
+  <a href="#" class="btn-record" [ngClass]="{'active' : loaded, 'clicked' : working}" (click)="downloadFile($event)">Rec</a>
+</div>
+

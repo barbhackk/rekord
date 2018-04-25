@@ -1,0 +1,199 @@
+.main{
+    padding: 10px;
+    height: 542px;
+}
+
+.title{
+    width: 90%;
+    text-align: center;
+    margin: 20px auto;
+    color: white;
+    font-size: 16px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 50px;
+    font-weight: 900;
+}
+
+.analyzer {
+    position: relative;
+    background-color: black;
+    border-radius: 50%;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#progress-circle{
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: auto;
+    border-radius: 50%;
+    display: block;
+    box-shadow: inset 0px 0px 35px 20px black;
+}
+
+#back{
+    border-radius: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.round-progress-info{
+    text-shadow: 0px 0px 5px black;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+}
+
+.buttons-bottom-bar{
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-record {
+    text-indent: -999999px;
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 0 0px rgba(229, 80, 57, 0.5);
+    box-shadow: 0 0 0 0px rgba(229, 80, 57, 0.5);
+    position: relative;
+    margin: 10px;
+  }
+  
+  .btn-record::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 10px solid white;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record.active::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: 0px solid transparent;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record.clicked::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: 0px solid transparent;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record::before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: #e55039;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record.active::before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #e55039;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record.clicked::before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #e55039;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-box-shadow: 0 0 0 10px rgba(229, 80, 57, 1);
+    box-shadow: 0 0 0 10px rgba(229, 80, 57, 1);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-record.active, .btn-record.clicked{
+    -webkit-box-shadow: 0 0 0 10px rgba(229, 80, 57, 0.5);
+    box-shadow: 0 0 0 10px rgba(229, 80, 57, 0.5);
+    -webkit-transition: all 0.2s ease-out 0.2s;
+    -moz-transition: all 0.2s ease-out 0.2s;
+    -o-transition: all 0.2s ease-out 0.2s;
+    transition: all 0.2s ease-out 0.2s;
+  }
