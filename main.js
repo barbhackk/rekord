@@ -50,7 +50,7 @@ function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
       width: 360, 
-      height: 540,
+      height: 580,
       title: "Rekord",
       titleBarStyle: 'hiddenInset', 
       transparent: true, 
@@ -59,7 +59,8 @@ function createWindow () {
       maximizable: false,
       center: true,
       webPreferences: {
-        webSecurity: false
+        webSecurity: false,
+        nodeIntegration: true
       },
       icon: path.join(__dirname, 'src/assets/icons/png/64x64.png')
     })
@@ -73,7 +74,7 @@ function createWindow () {
     }));
   } else {
     win.loadURL(process.env.HOST);
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
@@ -114,6 +115,13 @@ app.on('activate', () => {
   if (win === null) {
     createWindow()
   }
+})
+
+ipcMain.on('getInfo', (event, args) => {
+  ytdl.getInfo(args.url, (err, info) => {
+    if(err) throw err;
+    ipcMain.emit('info', {info: info});
+  });
 })
 
 // On Download event

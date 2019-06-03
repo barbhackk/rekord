@@ -1,18 +1,11 @@
-import { Component, OnInit, Injectable, ApplicationRef, NgZone } from '@angular/core';
-import { interval } from 'rxjs/observable/interval';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, Injectable, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
-import 'rxjs/Rx';
-import { empty } from 'rxjs/Observer';
-
-declare var require;
-const Ytdl = require('ytdl-core');
 
 @Injectable()
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 
@@ -31,9 +24,15 @@ export class MainComponent implements OnInit {
   /**
    * Constructeur par défaut
    */
-  constructor(private app : ApplicationRef, private _electronService : ElectronService, private _ngZone: NgZone) {
+  constructor(private _electronService : ElectronService, private _ngZone: NgZone) {
+    
+    let _electronGetInfo = this._electronService.remote.ipcMain.on('info', (args) => {
+      this._ngZone.run(() => {
+        this.info = args.info;
+        this.loaded = true;
+      });
+    });
 
-    // Déclaration des événements de l'hôte ELECTRON.io
     let _electronStart = this._electronService.remote.ipcMain.on('start', (args) => {
       this._ngZone.run(() => {
         this.current = 0;
@@ -82,19 +81,8 @@ export class MainComponent implements OnInit {
   /**
    * Récupération des informations de la vidéo
    */
-  getInfo(url){
-    let promise = new Promise((resolve, reject) => {
-      Ytdl.getInfo(this.url, (err, info) => {
-        if(err) reject(err);
-        resolve(info);
-      });
-    })
-    .then((data) => {
-      this.loaded = true;
-      this.info = data
-    });
-
-    return promise;
+  getInfo(u){
+    this._electronService.ipcRenderer.send('getInfo', {url: u});
   }
 
   reset(){
