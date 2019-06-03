@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://sebast1.github.io/rekord/src/assets/icons/png/128x128.png" width="128" title="Rekord" alt="logo">
+  <img src="https://barbhackk.github.io/rekord/src/assets/icons/png/128x128.png" width="128" title="Rekord" alt="logo">
 </p>
 
 # About
@@ -18,7 +18,7 @@ To clone and run this repository, you'll need Git and Node.js (which comes with 
 
 ```
 # Clone this repository
-git clone https://github.com/sebast1/rekord.git
+git clone https://github.com/barbhackk/rekord.git
 # Go into the repository
 cd rekord
 # Install dependencies
