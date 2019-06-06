@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /download
+/releases
 # Only exists if Bazel was run
 /bazel-out
 

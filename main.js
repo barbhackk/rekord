@@ -9,64 +9,85 @@ const ffmpeg = require('fluent-ffmpeg');
 
 require('dotenv').config();
 ffmpeg.setFfmpegPath(ffmpegPath);
-DOWNLOAD_PATH = "./download";
+
+const isEnvSet = 'PACKAGE' in process.env;
+const isDevMode = isEnvSet ? process.env.PACKAGE === "false" : !app.isPackaged;
+const HOME = require("os").homedir();
+const DOWNLOAD_PATH = HOME + "/Documents/Rekord Download";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+const isMac = process.platform === 'darwin';
 
 // Menu
 const templateMenu = [
+  (isMac ? 
+    {
+      label: app.getName(),
+      submenu: [
+        {label: 'À propos de Rekord', role: 'about'},
+        {type: 'separator'},
+        {role: 'services'},
+        {type: 'separator'},
+        {label: 'Masquer Rekord', role: 'hide'},
+        {label: 'Masquer les autres', role: 'hideothers'},
+        {label: 'Afficher tout', role: 'unhide'},
+        {type: 'separator'},
+        {label: 'Quitter Rekord', role: 'quit'}
+      ]
+    } : []),
   {
-    role: 'window',
+    role: 'Window',
+    label: 'Fenêtre',
     submenu: [
-      {role: 'minimize'},
-      {role: 'zoom'},
-      {type: 'separator'},
-      {role: 'front'}
+      { label: 'Réduire', role: 'minimize' },
+      { label: 'Agrandir', role: 'zoom' },
+      ...( isMac ? [
+        { type: 'separator' },
+        { label: 'Mettre tout au premier plan', role: 'front' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+  },
+  {
+    label: 'Aide',
+    role: 'help',
+    submenu: [
+      {
+        label: 'Documentation',
+        click () { require('electron').shell.openExternalSync('https://barbhackk.github.io/rekord') }
+      }
     ]
   }
 ]
-
-if (process.platform === 'darwin') {
-  const name = app.getName()
-  templateMenu.unshift({
-    label: name,
-    submenu: [
-      {role: 'about'},
-      {type: 'separator'},
-      {role: 'services'},
-      {type: 'separator'},
-      {role: 'hide'},
-      {role: 'hideothers'},
-      {role: 'unhide'},
-      {type: 'separator'},
-      {role: 'quit'}
-    ]
-  })
-}
 
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
       width: 360, 
       height: 580,
+      backgroundColor: "#2C3A47",
       title: "Rekord",
-      titleBarStyle: 'hiddenInset', 
-      transparent: true, 
-      frame: false, 
+      fullscreenable: false,
+      frame: false,
+      icon: path.join(__dirname, 'src/assets/icons/png/64x64.png'),
+      resizable: false,
+      useContentSize: true,
+      center: true,
+      useContentSize: true,
       resizable: false,
       maximizable: false,
-      center: true,
+      titleBarStyle: "hiddenInset",
+      transparent: true,
       webPreferences: {
-        webSecurity: false,
         nodeIntegration: true
       },
-      icon: path.join(__dirname, 'src/assets/icons/png/64x64.png')
     })
 
   // Specify entry point
-  if (process.env.PACKAGE === 'true'){
+  if (!isDevMode){
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist', 'index.html'),
       protocol: 'file:',
@@ -74,8 +95,12 @@ function createWindow () {
     }));
   } else {
     win.loadURL(process.env.HOST);
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
   }
+
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 
   // Emitted when the window is closed.
   win.on('closed', () => {
