@@ -22,21 +22,6 @@ const isMac = process.platform === 'darwin';
 
 // Menu
 const templateMenu = [
-  (isMac ? 
-    {
-      label: app.getName(),
-      submenu: [
-        {label: 'À propos de Rekord', role: 'about'},
-        {type: 'separator'},
-        {role: 'services'},
-        {type: 'separator'},
-        {label: 'Masquer Rekord', role: 'hide'},
-        {label: 'Masquer les autres', role: 'hideothers'},
-        {label: 'Afficher tout', role: 'unhide'},
-        {type: 'separator'},
-        {label: 'Quitter Rekord', role: 'quit'}
-      ]
-    } : []),
   {
     role: 'Window',
     label: 'Fenêtre',
@@ -63,10 +48,27 @@ const templateMenu = [
   }
 ]
 
+if(isMac){
+  templateMenu.unshift({
+    label: app.getName(),
+    submenu: [
+      {label: 'À propos de Rekord', role: 'about'},
+      {type: 'separator'},
+      {role: 'services'},
+      {type: 'separator'},
+      {label: 'Masquer Rekord', role: 'hide'},
+      {label: 'Masquer les autres', role: 'hideothers'},
+      {label: 'Afficher tout', role: 'unhide'},
+      {type: 'separator'},
+      {label: 'Quitter Rekord', role: 'quit'}
+    ]
+  });
+}
+
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-      width: 360, 
+      width: 360,
       height: 580,
       backgroundColor: "#2C3A47",
       title: "Rekord",
@@ -160,16 +162,16 @@ ipcMain.on('download', (event, args) => {
   // Constructor Youtube Downloader
   video = ytdl(args.url, { filter: 'audioonly' });
   video.pipe(fs.createWriteStream(DOWNLOAD_PATH + '/' + filename + ext));
-  
+
   // On response emit
   video.once('response', () => {
     // Emit start event to Angular application
     ipcMain.emit('start');
     // Init timestamp
     starttime = Date.now();
-    
+
   });
-  
+
   // On progress emit
   video.on('progress', (chunkLength, downloaded, total) => {
       const floatDownloaded = downloaded / total;
@@ -177,7 +179,7 @@ ipcMain.on('download', (event, args) => {
       // Emit progress event to Angular application with progress infos
       ipcMain.emit('progress', {percent: (floatDownloaded * 100).toFixed(2), remainingminute: downloadedMinutes ,download: downloaded, t: total});
     });
-  
+
   // On end event
   video.on('end', () => {
     // Convert mp4 to mp3
@@ -211,8 +213,8 @@ clipboardWatcher({
 /**
  * convertToMP3 function
  * convert any video/audio file to MP3
- * @param {string} file 
- * @param {object} callback 
+ * @param {string} file
+ * @param {object} callback
  */
 function convertToMP3(file, ext, callback){
   try {
