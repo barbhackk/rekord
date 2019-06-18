@@ -37,17 +37,17 @@ Download the latest version from the [releases](https://github.com/barbhackk/rek
 Launch the app and copy any Youtube link with the right mouse button or with the combination [Ctrl] + c on Windows and Linux, [cmd] + c on Mac.
 
 <p align="center">
-  <img src=".github/images/rekord-screen-1.png" width="400" title="Rekord copy-paste" alt="Screen Rekord copy-paste">
+  <img src=".github/images/rekord-screen-1.png" width="100%" title="Rekord copy-paste" alt="Screen Rekord copy-paste">
 </p>
 
 <p align="center">
-  <img src=".github/images/rekord-screen-2.png" width="400" title="Rekord download" alt="Screen Rekord download">
+  <img src=".github/images/rekord-screen-2.png" width="100%" title="Rekord download" alt="Screen Rekord download">
 </p>
 
 No need to past Youtube link into the application. This automatically captures all youtube links validating copy in the clipboard. When this is the case, it displays the video information. Just click on the red 'save' button.
 
 <div align="center">
-  <img alt="Rekord" src=".github/images/rekord-screen-4.png" width="400">
+  <img alt="Rekord" src=".github/images/rekord-screen-4.png" width="100%">
 </div>
 
 <p align="center">A 'Rekord Download' folder is created at yout Document root.</p>
