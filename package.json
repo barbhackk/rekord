@@ -1,5 +1,6 @@
 {
   "name": "rekord",
+  "productName": "Rekord",
   "version": "2.0.0",
   "license": "MIT",
   "main": "main.js",
@@ -7,13 +8,15 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "clean": "rm -rf ./dist ./releases",
+    "clean": "rm -rf ./dist ./release-builds",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
     "electron-build": "ng build --prod && electron .",
-    "dist-mac": "ng build --prod && electron-packager . --overwrite --out=releases --ignore=e2e --ignore=src --platform=darwin --arch=x64"
+    "package-mac": "ng build --prod && electron-packager . --prune=true --overwrite --out=release-builds --ignore=e2e --ignore=src --platform=darwin --arch=x64 --icon=src/assets/icons/mac/icon.icns",
+    "package-win": "ng build --prod && electron-packager . rekord --overwrite --asar --platform=win32 --arch=ia32 --icon=src/assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=barbhackk --version-string.FileDescription=barbhackk --version-string.ProductName=\"Rekord\"",
+    "package-linux": "ng build --prod && electron-packager . rekord --overwrite --asar --platform=linux --arch=x64 --icon=src/assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
   "private": true,
   "dependencies": {
