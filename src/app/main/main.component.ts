@@ -67,9 +67,11 @@ export class MainComponent implements OnInit {
       this._ngZone.run(() => {
         if(!this.convert){
           this.convert = true;
-          this.current = 0;
+          // TODO : no percent in progress handler #621 : https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/issues/621
+          //this.current = 0;
         }
-        this.current += (args.percent.toFixed(2) - this.current);
+        // TODO : no percent in progress handler #621 : https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/issues/621
+        //this.current += (args.percent.toFixed(2) - this.current);
       });
     });
   }

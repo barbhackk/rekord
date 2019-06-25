@@ -1,16 +1,17 @@
 <div class="main">
     <div class="analyzer">
-        <div id="back" *ngIf="info" [ngStyle]="{'background-image': 'url(' + info.thumbnail_url + ')'}"></div>
+        <div id="back" *ngIf="info" [ngStyle]="{'background-image': 'url(https://img.youtube.com/vi/' + info.video_id + '/hqdefault.jpg)'}"></div>
         <div id="progress-circle">
           <round-progress 
             [current]="current" 
             [max]="100"
             [responsive]="true"
-            [background]="'#333'"
-            [stroke]="8"
-            [color]="'#00cec9'"
+            [background]="'#222'"
+            [stroke]="2"
+            [color]="'#00FFB3'"
           ></round-progress>
-          <span class="round-progress-info" *ngIf="working && !convert">Téléchargement en cours...<br/>{{ download }}Mo / {{ total }}Mo</span>
+          <span class="round-progress-info" *ngIf="!info">En attente...</span>
+          <span class="round-progress-info" *ngIf="working && !convert">Téléchargement...<br/>{{ download }}Mo / {{ total }}Mo</span>
           <span class="round-progress-info" *ngIf="working && convert">Conversion en cours...</span>
         </div>
     </div>

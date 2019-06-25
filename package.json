@@ -1,7 +1,7 @@
 {
   "name": "rekord",
   "productName": "Rekord",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "license": "MIT",
   "main": "main.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "rxjs-compat": "^6.5.2",
     "stream": "0.0.2",
     "tslib": "^1.9.0",
+    "update-electron-app": "^1.4.2",
     "ytdl-core": "^0.29.2",
     "zone.js": "~0.8.26"
   },

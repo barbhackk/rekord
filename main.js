@@ -68,8 +68,8 @@ if(isMac){
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-      width: 360,
-      height: 580,
+      width: 320,
+      height: 500,
       backgroundColor: "#2C3A47",
       title: "Rekord",
       fullscreenable: false,
@@ -156,6 +156,7 @@ ipcMain.on('getInfo', (event, args) => {
 ipcMain.on('download', (event, args) => {
   let video;
   let starttime;
+  let videoId = args.info.video_id;
   let filename = args.info.title.replace(/[^A-Z1-2-]/gi, '_').replace(/_/g, '_');
   let ext = '.mp4';
 
@@ -184,7 +185,7 @@ ipcMain.on('download', (event, args) => {
   video.on('end', () => {
     // Convert mp4 to mp3
     // Callback ==> success : Boolean, err : Object
-    convertToMP3(DOWNLOAD_PATH + '/' + filename, ext, (success, err) => {
+    convertToMP3(DOWNLOAD_PATH + '/' + filename, ext, videoId, (success, err) => {
       if(success){
         // Emit end event to Angular application
         ipcMain.emit('end');
@@ -216,17 +217,23 @@ clipboardWatcher({
  * @param {string} file
  * @param {object} callback
  */
-function convertToMP3(file, ext, callback){
+function convertToMP3(file, ext, videoId, callback){
   try {
     var command = ffmpeg(file + ext)
+      .addInput('https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg')
+      .outputOptions([
+        '-map 0',
+        '-map 1',
+        '-c copy',
+        '-c:a libmp3lame',
+        '-id3v2_version 3',
+        '-metadata:s:v title="Album cover"',
+        '-metadata:s:v comment="Cover (front)"'
+      ])
       .toFormat('mp3')
       .saveToFile(file + '.mp3')
       .on('progress', function(progress) {
-        //  progress // {"frames":null,"currentFps":null,"currentKbps":256,"targetSize":204871,"timemark":"01:49:15.90"}
-        //console.log('Processing: ' + progress.timemark + ' done ' + progress.targetSize+' kilobytes' + 'Processing: ' + progress.percent + '% done');
-        // Emit conversion progress
-        ipcMain.emit('convert', {percent: progress.percent});
-
+        ipcMain.emit('convert', {progress : progress});
       })
       .on('end', () => {
         fs.unlink(file + ext, (err) => {

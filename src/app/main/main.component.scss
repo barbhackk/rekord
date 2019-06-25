@@ -1,19 +1,16 @@
 .main{
-    padding: 10px;
-    height: 542px;
+    padding: 5px;
+    height: 462px;
 }
 
 .title{
     width: 90%;
     text-align: center;
-    margin: 20px auto;
+    margin: 10px auto;
     color: white;
     font-size: 16px;
     overflow : hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     height: 50px;
     font-weight: 900;
 }
@@ -24,7 +21,6 @@
     border-radius: 50%;
     width: 90%;
     margin: auto;
-    margin-bottom: 20px;
 }
 
 #progress-circle{
@@ -47,7 +43,7 @@
     position: absolute;
     z-index: 1;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover cover;
     background-position: center center;
 }
 
